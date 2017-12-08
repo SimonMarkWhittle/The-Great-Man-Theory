@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public float extraForce;
     public float maxForce;
     public float offset;
+    public float wigglemax;
 
 	// Use this for initialization
 	void Start () {

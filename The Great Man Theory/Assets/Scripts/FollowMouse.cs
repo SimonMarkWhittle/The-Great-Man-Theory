@@ -7,7 +7,6 @@ public class FollowMouse : MonoBehaviour {
     Vector2 anchorOffset = new Vector2();
     Rigidbody2D body;
     GameManager gm;
-    public bool active=true;
 
 	// Use this for initialization
 	void Start () {
@@ -18,8 +17,7 @@ public class FollowMouse : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (active)
-            Forces();
+        Forces();
 	}
 
     void Forces() {
@@ -31,6 +29,7 @@ public class FollowMouse : MonoBehaviour {
         Vector2 force = (mousePos - forcePoint) * gm.extraForce;
         // force.Normalize();
         // force *= gm.maxForce;
+        // Debug.Log(force.magnitude);
         body.AddForceAtPosition(force, forcePoint);
     }
 }
