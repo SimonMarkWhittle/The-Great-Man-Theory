@@ -12,18 +12,18 @@ public class FollowMouse : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         body = GetComponentInParent<Rigidbody2D>();
-        anchorOffset += new Vector2(0f, 1f);
         gm = FindObjectOfType<GameManager>();
+        anchorOffset += new Vector2(0f, gm.offset);
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         if (active)
             Forces();
 	}
 
     void Forces() {
-        Debug.Log("Geddit" + ManagerGetter.Get());
+        // Debug.Log("Geddit" + ManagerGetter.Get());
         Camera cam = gm.mainCamera;
         Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 

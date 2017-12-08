@@ -6,7 +6,8 @@ public class HeadTracking : MonoBehaviour {
 
     GameManager gm;
     public bool active = true;
-    public float maxDegrees = 10f;
+    public float maxDegrees = 1000f;
+    public GameObject point;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +23,8 @@ public class HeadTracking : MonoBehaviour {
     void Look() {
         Camera cam = gm.mainCamera;
         Vector2 pos = gameObject.transform.position;
-        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        // Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = point.transform.position;
         Vector2 diffPoint = mousePos - pos;
 
         Vector2 forward = gameObject.transform.up;

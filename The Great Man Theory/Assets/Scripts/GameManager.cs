@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public Camera mainCamera;
     public float extraForce;
     public float maxForce;
+    public float offset;
 
 	// Use this for initialization
 	void Start () {
