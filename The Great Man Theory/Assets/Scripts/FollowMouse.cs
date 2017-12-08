@@ -25,8 +25,7 @@ public class FollowMouse : MonoBehaviour {
     void Forces() {
         Debug.Log("Geddit" + ManagerGetter.Get());
         Camera cam = gm.mainCamera;
-        Vector3 mousePos3 = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mousePos = new Vector2(mousePos3.x, mousePos3.y);
+        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
         Vector2 forcePoint = body.GetRelativePoint(body.centerOfMass + anchorOffset);
         Vector2 force = (mousePos - forcePoint) * gm.extraForce;
