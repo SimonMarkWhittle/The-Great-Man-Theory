@@ -8,23 +8,30 @@ public class Damage : MonoBehaviour {
 
     public GameObject weapon;
 
+    Collider2D weaponCollider;
+
 	// Use this for initialization
 	void Start () {
         if (weapon) {
-            Collider2D weaponCollider = weapon.GetComponent<Collider2D>();
+            weaponCollider = weapon.GetComponent<Collider2D>();
             Collider2D thisCollider = gameObject.GetComponent<Collider2D>();
-            Physics2D.IgnoreCollision(weaponCollider, thisCollider);
+            // Physics2D.IgnoreCollision(weaponCollider, thisCollider);
         }
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (health < 0f) {
+            if (weapon)
+                weapon.SetActive(false);
             gameObject.SetActive(false);
         }
 	}
 
     void OnCollisionEnter2D(Collision2D other) {
+        if (other.collider == weaponCollider) {
+            return;
+        }
         Collider2D box = other.collider;
         GameObject go = box.gameObject;
         if (go.CompareTag("Weapon")) {
