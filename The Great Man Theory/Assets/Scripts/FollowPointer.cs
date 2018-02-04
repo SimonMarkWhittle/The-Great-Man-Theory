@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class FollowPointer : MonoBehaviour {
     
-    GameManager gm;
     Rigidbody2D body;
     Vector2 anchorOffset;
     Vector2 targetPos;
     Vector2 forcePoint;
+    //Vector2 stabPoint;
+    public int maxSpeed = 10; //This will depend on the weapon
+    public int clamp = 20;
+    public int multiplier = 5;
+    public int CanMove = 1;
 
     public Vector2 ForcePoint {
         get { return body.GetRelativePoint(forcePoint); }
@@ -17,15 +21,19 @@ public class FollowPointer : MonoBehaviour {
         get { return targetPos; }
         set { targetPos = value; } }
 
+    public Vector2 StabPoint {
+        get { return forcePoint; }
+    }
+
 	// Use this for initialization
 	void Start () {
         body = gameObject.GetComponent<Rigidbody2D>();
-        gm = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
-        anchorOffset = new Vector2(0f, gm.offset);
+        anchorOffset = new Vector2(0f, 2);
 
         targetPos = body.centerOfMass + anchorOffset;
         forcePoint = body.centerOfMass + anchorOffset;
+        //stabPoint = body.centerOfMass - (anchorOffset / 2);
 	}
 	
 	// Update is called once per frame
@@ -38,7 +46,10 @@ public class FollowPointer : MonoBehaviour {
     }
 
     public void Forces() {
-        Vector2 force = targetPos * gm.extraForce;
-        body.AddForceAtPosition(force, ForcePoint);
+        Vector2 force = Vector2.ClampMagnitude(targetPos * multiplier, clamp) *  CanMove;
+
+        if (body.GetRelativePointVelocity(forcePoint).magnitude < maxSpeed) {
+             body.AddForceAtPosition(force, ForcePoint, ForceMode2D.Impulse);
+        }
     }
 }
